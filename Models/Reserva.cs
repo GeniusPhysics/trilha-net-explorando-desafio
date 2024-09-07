@@ -17,7 +17,8 @@ namespace DesafioProjetoHospedagem.Models
         {
             // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
             // *IMPLEMENTE AQUI*
-            if (true)
+            HasSuite();
+            if (Suite.Capacidade >= hospedes.Count)
             {
                 Hospedes = hospedes;
             }
@@ -25,6 +26,7 @@ namespace DesafioProjetoHospedagem.Models
             {
                 // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
                 // *IMPLEMENTE AQUI*
+                throw new Exception("Capacidade menor que o número de hóspedes");
             }
         }
 
@@ -37,6 +39,10 @@ namespace DesafioProjetoHospedagem.Models
         {
             // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
             // *IMPLEMENTE AQUI*
+            if (Hospedes != null)
+            {
+                return Hospedes.Count;
+            }
             return 0;
         }
 
@@ -46,15 +52,24 @@ namespace DesafioProjetoHospedagem.Models
             // Cálculo: DiasReservados X Suite.ValorDiaria
             // *IMPLEMENTE AQUI*
             decimal valor = 0;
+            HasSuite();
+            valor = DiasReservados * Suite.ValorDiaria;
 
             // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
             // *IMPLEMENTE AQUI*
-            if (true)
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                valor = valor - (valor * 0.1m);
             }
 
             return valor;
+        }
+        private void HasSuite()
+        {
+            if (Suite == null)
+            {
+                throw new Exception("Suite não cadastrada");
+            }
         }
     }
 }
